@@ -1,11 +1,40 @@
 {
   "name": "calender-heatmap",
   "version": "1.0.0",
-  "description": "Create calender heatmap easily",
-  "main": "index.js",
+  "description": "Create calendar heatmap easily",
+  "main": "dist/heatmap.cjs.js",
+  "module": "dist/heatmap.esm.js",
+  "umd:main": "dist/heatmap.umd.js",
+  "exports": {
+    ".": {
+      "require": "./dist/heatmap.cjs.js",
+      "import": "./dist/heatmap.esm.js",
+      "browser": "./dist/heatmap.umd.js"
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
+    "prepublishOnly": "npm run build"
   },
   "author": "lepusarcticus",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.4.11"
+  },
+  "dependencies": {},
+  "keywords": [
+    "heatmap",
+    "calendar",
+    "data visualization",
+    "calendar heatmap"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lepusarcticus123/calender-heatmap"
+  },
+  "bugs": {
+    "url": "https://github.com/lepusarcticus123/calender-heatmap/issues"
+  },
+  "homepage": "https://github.com/lepusarcticus123/calender-heatmap"
 }
