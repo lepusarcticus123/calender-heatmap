@@ -1,6 +1,8 @@
 # README
 
 ## HOW TO USE
+首先，下载包
+`npm i calender-heatmap`
 
 ### `UMD`
 
