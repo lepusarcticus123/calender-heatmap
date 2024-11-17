@@ -10,11 +10,14 @@ class Heatmap {
       cellSpacing: 2,
       tipMonth: {
         value: true,
-        format: (month) => month, // 默认直接返回月份
+        format: (month) => month + "月", // 默认直接返回月份
       },
       tooltip: {
         value: true,
-        format: (value) => `${value[1].toFixed(2)} on ${value[0]}`, // 默认显示值和日期
+        format: (value) =>
+          `${value[1].toFixed(2)} 于 ${value[0].split()[0]}年 ${
+            value[0].split()[1]
+          }月 ${value[0].split()[2]}日`, // 默认显示值和日期
       },
     };
     // 合并默认选项和用户传入的选项

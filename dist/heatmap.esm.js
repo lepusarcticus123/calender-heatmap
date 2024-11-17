@@ -1,28 +1,28 @@
 class u {
-  constructor(t, n, e) {
-    this.container = t, this.data = n, this.options = e;
-    const r = {
+  constructor(t, n, r) {
+    this.container = t, this.data = n, this.options = r;
+    const s = {
       x: 20,
       y: 10,
       color: "green",
       cellSpacing: 2,
       tipMonth: {
         value: !0,
-        format: (l) => l
+        format: (e) => e + "月"
         // 默认直接返回月份
       },
       tooltip: {
         value: !0,
-        format: (l) => `${l[1].toFixed(2)} on ${l[0]}`
+        format: (e) => `${e[1].toFixed(2)} 于 ${e[0].split()[0]}年 ${e[0].split()[1]}月 ${e[0].split()[2]}日`
         // 默认显示值和日期
       }
     };
-    this.options = { ...r, ...e };
+    this.options = { ...s, ...r };
   }
   getColor(t, n) {
     switch (n) {
       case "green":
-        const e = [
+        const r = [
           { threshold: 0, color: "#ebedf0" },
           // 最浅灰绿
           { threshold: 1, color: "#d4f5d0" },
@@ -40,10 +40,10 @@ class u {
           { threshold: 50, color: "#154823" }
           // 最深绿色
         ];
-        for (let o = e.length - 1; o >= 0; o--)
-          if (t >= e[o].threshold) return e[o].color;
+        for (let o = r.length - 1; o >= 0; o--)
+          if (t >= r[o].threshold) return r[o].color;
       case "purple":
-        const r = [
+        const s = [
           { threshold: 0, color: "#f5eef8" },
           // 最浅灰紫
           { threshold: 1, color: "#ebd7f1" },
@@ -61,10 +61,10 @@ class u {
           { threshold: 50, color: "#5b2c6f" }
           // 最深紫色
         ];
-        for (let o = r.length - 1; o >= 0; o--)
-          if (t >= r[o].threshold) return r[o].color;
+        for (let o = s.length - 1; o >= 0; o--)
+          if (t >= s[o].threshold) return s[o].color;
       case "blue":
-        const l = [
+        const e = [
           { threshold: 0, color: "#ebedf0" },
           // 最浅灰蓝
           { threshold: 1, color: "#d0e7f9" },
@@ -82,8 +82,8 @@ class u {
           { threshold: 50, color: "#174ea6" }
           // 最深蓝色
         ];
-        for (let o = l.length - 1; o >= 0; o--)
-          if (t >= l[o].threshold) return l[o].color;
+        for (let o = e.length - 1; o >= 0; o--)
+          if (t >= e[o].threshold) return e[o].color;
       case "orange":
         const c = [
           { threshold: 0, color: "#fef5e7" },
@@ -114,43 +114,43 @@ class u {
     t.setAttribute("id", "tooltip");
     const n = this.container.parentElement;
     t.style.position = "absolute", t.style.backgroundColor = "rgba(0, 0, 0, 0.9)", t.style.color = "white", t.style.padding = "6px", t.style.borderRadius = "5px", t.style.opacity = "0", t.style.fontSize = "smaller", t.style.transition = "opacity 0.5s", t.style.pointerEvents = "none", n.appendChild(t);
-    const e = this.container.width.baseVal.value, r = this.container.height.baseVal.value;
-    this.container.style.height = r + 20;
-    const l = e * 0.01, c = r * 0.01;
+    const r = this.container.width.baseVal.value, s = this.container.height.baseVal.value;
+    this.container.style.height = s + 20;
+    const e = r * 0.01, c = s * 0.01;
     this.data.forEach((o, d) => {
-      let s = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-      if (s.setAttribute(
+      let l = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      if (l.setAttribute(
         "x",
-        Math.floor(d / this.options.y) * (e / this.options.x)
+        Math.floor(d / this.options.y) * (r / this.options.x)
         // 列号
-      ), s.setAttribute(
+      ), l.setAttribute(
         "y",
-        d % this.options.y * (r / this.options.y)
+        d % this.options.y * (s / this.options.y)
         // 行号
-      ), s.setAttribute(
+      ), l.setAttribute(
         "width",
-        e / this.options.x - this.options.cellSpacing
-      ), s.setAttribute(
+        r / this.options.x - this.options.cellSpacing
+      ), l.setAttribute(
         "height",
-        r / this.options.y - this.options.cellSpacing
-      ), s.setAttribute("fill", this.getColor(o[1], this.options.color)), s.setAttribute("rx", l), s.setAttribute("ry", c), this.container.appendChild(s), this.options.tipMonth.value) {
-        const a = o[0].split("-")[2], i = o[0].split("-")[1];
-        if (a == "01") {
+        s / this.options.y - this.options.cellSpacing
+      ), l.setAttribute("fill", this.getColor(o[1], this.options.color)), l.setAttribute("rx", e), l.setAttribute("ry", c), this.container.appendChild(l), this.options.tipMonth.value) {
+        const p = o[0].split("-")[2], i = o[0].split("-")[1];
+        if (p == "01") {
           const h = document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
           );
           h.textContent = this.options.tipMonth.format(parseInt(i, 10));
-          const p = Math.floor(d / this.options.y) * (e / this.options.x) + 10;
-          let f = r + 17;
-          h.setAttribute("x", p), h.setAttribute("y", f), h.setAttribute("fill", "rgb(174, 174, 174)"), h.setAttribute("font-size", "14px"), h.setAttribute("text-anchor", "middle"), this.container.appendChild(h);
+          const a = Math.floor(d / this.options.y) * (r / this.options.x) + 10;
+          let f = s + 17;
+          h.setAttribute("x", a), h.setAttribute("y", f), h.setAttribute("fill", "rgb(174, 174, 174)"), h.setAttribute("font-size", "14px"), h.setAttribute("text-anchor", "middle"), this.container.appendChild(h);
         }
       }
-      this.options.tooltip.value && (s.addEventListener("mouseover", (a) => {
+      this.options.tooltip.value && (l.addEventListener("mouseover", (p) => {
         t.style.opacity = "1", t.textContent = this.options.tooltip.format(o);
-        const i = s.getBoundingClientRect(), h = i.left + i.width / 2 - t.offsetWidth / 2;
+        const i = l.getBoundingClientRect(), h = i.left + i.width / 2 - t.offsetWidth / 2;
         t.style.left = `${h}px`, t.style.top = `${i.top - i.height * 2}px`;
-      }), s.addEventListener("mouseout", () => {
+      }), l.addEventListener("mouseout", () => {
         t.style.opacity = "0";
       }));
     });
