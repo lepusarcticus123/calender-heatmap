@@ -14,7 +14,7 @@ export default defineConfig({
           format: "umd", // UMD 格式
           dir: "dist", // 输出目录
           entryFileNames: "heatmap.umd.js", // UMD 输出文件名
-          name: "Heatmap", // 全局变量名
+          name: "CalenderHeatmap", // 全局变量名
           globals: {
             // 如果有外部依赖，可以在这里配置
             // lodash: '_',
