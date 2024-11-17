@@ -13,7 +13,7 @@ class u {
       },
       tooltip: {
         value: !0,
-        format: (e) => `${e[1].toFixed(2)} 于 ${e[0].split()[0]}年 ${e[0].split()[1]}月 ${e[0].split()[2]}日`
+        format: (e) => `${e[1].toFixed(2)} 于 ${e[0].split("-")[0]}年 ${e[0].split("-")[1]}月 ${e[0].split("-")[2]}日`
         // 默认显示值和日期
       }
     };

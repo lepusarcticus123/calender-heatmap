@@ -15,9 +15,9 @@ class Heatmap {
       tooltip: {
         value: true,
         format: (value) =>
-          `${value[1].toFixed(2)} 于 ${value[0].split()[0]}年 ${
-            value[0].split()[1]
-          }月 ${value[0].split()[2]}日`, // 默认显示值和日期
+          `${value[1].toFixed(2)} 于 ${value[0].split('-')[0]}年 ${
+            value[0].split('-')[1]
+          }月 ${value[0].split('-')[2]}日`, // 默认显示值和日期
       },
     };
     // 合并默认选项和用户传入的选项
