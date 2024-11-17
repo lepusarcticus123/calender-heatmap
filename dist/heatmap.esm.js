@@ -1,26 +1,26 @@
-class a {
-  constructor(t, h, e) {
-    this.container = t, this.data = h, this.options = e;
-    const n = {
+class u {
+  constructor(t, n, e) {
+    this.container = t, this.data = n, this.options = e;
+    const r = {
       x: 20,
       y: 10,
       color: "green",
       cellSpacing: 2,
       tipMonth: {
         value: !0,
-        format: (l) => l
+        format: (s) => s
         // 默认直接返回月份
       },
       tooltip: {
         value: !0,
-        format: (l) => `${l[1].toFixed(2)} on ${l[0]}`
+        format: (s) => `${s[1].toFixed(2)} on ${s[0]}`
         // 默认显示值和日期
       }
     };
-    this.options = { ...n, ...e };
+    this.options = { ...r, ...e };
   }
-  getColor(t, h) {
-    switch (h) {
+  getColor(t, n) {
+    switch (n) {
       case "green":
         const e = [
           { threshold: 0, color: "#ebedf0" },
@@ -43,7 +43,7 @@ class a {
         for (let o = e.length - 1; o >= 0; o--)
           if (t >= e[o].threshold) return e[o].color;
       case "purple":
-        const n = [
+        const r = [
           { threshold: 0, color: "#f5eef8" },
           // 最浅灰紫
           { threshold: 1, color: "#ebd7f1" },
@@ -61,10 +61,10 @@ class a {
           { threshold: 50, color: "#5b2c6f" }
           // 最深紫色
         ];
-        for (let o = n.length - 1; o >= 0; o--)
-          if (t >= n[o].threshold) return n[o].color;
+        for (let o = r.length - 1; o >= 0; o--)
+          if (t >= r[o].threshold) return r[o].color;
       case "blue":
-        const l = [
+        const s = [
           { threshold: 0, color: "#ebedf0" },
           // 最浅灰蓝
           { threshold: 1, color: "#d0e7f9" },
@@ -82,10 +82,10 @@ class a {
           { threshold: 50, color: "#174ea6" }
           // 最深蓝色
         ];
-        for (let o = l.length - 1; o >= 0; o--)
-          if (t >= l[o].threshold) return l[o].color;
+        for (let o = s.length - 1; o >= 0; o--)
+          if (t >= s[o].threshold) return s[o].color;
       case "orange":
-        const i = [
+        const c = [
           { threshold: 0, color: "#fef5e7" },
           // 最浅灰橙
           { threshold: 1, color: "#fdebd0" },
@@ -103,52 +103,58 @@ class a {
           { threshold: 50, color: "#a04000" }
           // 最深橙色
         ];
-        for (let o = i.length - 1; o >= 0; o--)
-          if (t >= i[o].threshold) return i[o].color;
+        for (let o = c.length - 1; o >= 0; o--)
+          if (t >= c[o].threshold) return c[o].color;
       default:
         return `rgb(${t * 255}, ${t * 255}, ${t * 255})`;
     }
   }
   paint() {
     const t = document.createElement("div");
-    t.style.position = "absolute", t.style.backgroundColor = "rgba(0, 0, 0, 0.9)", t.style.color = "white", t.style.padding = "6px", t.style.borderRadius = "5px", t.style.opacity = "0", t.style.fontSize = "smaller", t.style.transition = "opacity 0.5s", t.style.pointerEvents = "none", document.body.appendChild(t);
-    const h = this.container.width.baseVal.value, e = this.container.height.baseVal.value, n = h * 0.01, l = e * 0.01;
-    this.data.forEach((i, o) => {
-      let s = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-      if (s.setAttribute(
+    t.setAttribute("id", "tooltip");
+    const n = this.container.parentElement;
+    t.style.position = "absolute", t.style.backgroundColor = "rgba(0, 0, 0, 0.9)", t.style.color = "white", t.style.padding = "6px", t.style.borderRadius = "5px", t.style.opacity = "0", t.style.fontSize = "smaller", t.style.transition = "opacity 0.5s", t.style.pointerEvents = "none", n.appendChild(t);
+    const e = this.container.width.baseVal.value, r = this.container.height.baseVal.value;
+    this.container.style.height = r + 20;
+    const s = e * 0.01, c = r * 0.01;
+    this.data.forEach((o, d) => {
+      let l = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      if (l.setAttribute(
         "x",
-        Math.floor(o / this.options.y) * (h / this.options.x)
+        Math.floor(d / this.options.y) * (e / this.options.x)
         // 列号
-      ), s.setAttribute(
+      ), l.setAttribute(
         "y",
-        o % this.options.y * (e / this.options.y)
+        d % this.options.y * (r / this.options.y)
         // 行号
-      ), s.setAttribute(
+      ), l.setAttribute(
         "width",
-        h / this.options.x - this.options.cellSpacing
-      ), s.setAttribute(
+        e / this.options.x - this.options.cellSpacing
+      ), l.setAttribute(
         "height",
-        e / this.options.y - this.options.cellSpacing
-      ), s.setAttribute("fill", this.getColor(i[1], this.options.color)), s.setAttribute("rx", n), s.setAttribute("ry", l), this.container.appendChild(s), this.options.tipMonth.value) {
-        const d = i[0].split("-")[2], c = i[0].split("-")[1];
-        if (d == "01") {
-          const r = document.createElement("div");
-          r.textContent = this.options.tipMonth.format(
-            parseInt(c, 10)
-          ), r.style.position = "absolute", r.style.top = `${e + 14}px`, r.style.left = `${Math.floor(o / this.options.y) * (h / this.options.x) + 10}px`, r.style.fontSize = "14px", r.style.color = "rgb(174, 174, 174)", r.style.textAlign = "center", r.style.pointerEvents = "none", document.body.appendChild(r);
+        r / this.options.y - this.options.cellSpacing
+      ), l.setAttribute("fill", this.getColor(o[1], this.options.color)), l.setAttribute("rx", s), l.setAttribute("ry", c), this.container.appendChild(l), this.options.tipMonth.value) {
+        const a = o[0].split("-")[2], i = o[0].split("-")[1];
+        if (a == "01") {
+          const h = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "text"
+          );
+          h.textContent = this.options.tipMonth.format(parseInt(i, 10));
+          const p = Math.floor(d / this.options.y) * (e / this.options.x) + 10;
+          let f = r + 17;
+          h.setAttribute("x", p), h.setAttribute("y", f), h.setAttribute("fill", "rgb(174, 174, 174)"), h.setAttribute("font-size", "14px"), h.setAttribute("text-anchor", "middle"), this.container.appendChild(h);
         }
       }
-      this.options.tooltip.value && (s.addEventListener("mouseover", (d) => {
-        t.style.opacity = "1", t.textContent = this.options.tooltip.format(i);
-        const c = s.getBoundingClientRect(), r = c.left + c.width / 2 - t.offsetWidth / 2;
-        t.style.left = `${r}px`, t.style.top = `${c.top - c.height * 2}px`;
-      }), s.addEventListener("mouseout", () => {
-        t.style.opacity = "0";
-      }));
+      this.options.tooltip.value && l.addEventListener("mouseover", (a) => {
+        t.style.opacity = "1", t.textContent = this.options.tooltip.format(o);
+        const i = l.getBoundingClientRect(), h = i.left + i.width / 2 - t.offsetWidth / 2;
+        t.style.left = `${h}px`, t.style.top = `${i.top - i.height * 2}px`;
+      });
     });
   }
 }
 export {
-  a as Heatmap
+  u as Heatmap
 };
 //# sourceMappingURL=heatmap.esm.js.map

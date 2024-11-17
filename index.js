@@ -84,7 +84,9 @@ class Heatmap {
   }
 
   paint() {
-    const tooltip = document.createElement("div");
+    const tooltip = document.createElement("div"); // 创建一个 div 元素
+    tooltip.setAttribute("id", "tooltip"); // 设置该 div 的 id 属性为 "tooltip"
+    const parentElement = this.container.parentElement;
     tooltip.style.position = "absolute";
     tooltip.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
     tooltip.style.color = "white";
@@ -94,9 +96,11 @@ class Heatmap {
     tooltip.style.fontSize = "smaller";
     tooltip.style.transition = "opacity 0.5s";
     tooltip.style.pointerEvents = "none"; // 防止鼠标事件干扰
-    document.body.appendChild(tooltip);
+    parentElement.appendChild(tooltip);
+
     const scale = this.container.width.baseVal.value;
     const scaleY = this.container.height.baseVal.value;
+    this.container.style.height = scaleY + 20;
     const rx = scale * 0.01; // SVG 宽度的 2%
     const ry = scaleY * 0.01; // SVG 高度的 2%
 
@@ -128,21 +132,22 @@ class Heatmap {
         const day = value[0].split("-")[2];
         const month = value[0].split("-")[1];
         if (day == "01") {
-          const monthDiv = document.createElement("div");
-          monthDiv.textContent = this.options.tipMonth.format(
-            parseInt(month, 10)
-          ); // 格式化月份
-          monthDiv.style.position = "absolute";
-          monthDiv.style.top = `${scaleY + 14}px`; // 设置显示的 y 坐标，避免重叠
-          monthDiv.style.left = `${
-            Math.floor(index / this.options.y) * (scale / this.options.x) + 10
-          }px`;
-          monthDiv.style.fontSize = "14px";
-          monthDiv.style.color = "rgb(174, 174, 174)";
-          monthDiv.style.textAlign = "center";
-          monthDiv.style.pointerEvents = "none"; // 防止鼠标事件干扰
+          const text = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "text"
+          );
+          text.textContent = this.options.tipMonth.format(parseInt(month, 10)); // 格式化月份
 
-          document.body.appendChild(monthDiv); // 将 div 添加到 body 或容器中
+          const textX =
+            Math.floor(index / this.options.y) * (scale / this.options.x) + 10;
+          let textY = scaleY + 17; // 计算文本的 Y 坐标
+          text.setAttribute("x", textX);
+          text.setAttribute("y", textY); // 设置文本的 Y 坐标
+          text.setAttribute("fill", "rgb(174, 174, 174)");
+          text.setAttribute("font-size", "14px");
+          text.setAttribute("text-anchor", "middle");
+
+          this.container.appendChild(text);
         }
       }
 
@@ -155,15 +160,14 @@ class Heatmap {
           const left =
             rectBox.left + rectBox.width / 2 - tooltip.offsetWidth / 2;
           tooltip.style.left = `${left}px`;
-          tooltip.style.top = `${rectBox.top - rectBox.height * 2}px`; // 下方显示上方显示
+          tooltip.style.top = `${rectBox.top - rectBox.height * 2}px`;
         });
 
-        rect.addEventListener("mouseout", () => {
-          tooltip.style.opacity = "0";
-        });
+        // rect.addEventListener("mouseout", () => {
+        //   tooltip.style.opacity = "0";
+        // });
       }
     });
   }
 }
-
 export { Heatmap };
