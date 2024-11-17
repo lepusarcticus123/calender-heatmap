@@ -1,6 +1,6 @@
 {
   "name": "calender-heatmap",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Create calendar heatmap easily",
   "main": "dist/heatmap.cjs.js",
   "module": "dist/heatmap.esm.js",
