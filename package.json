@@ -1,0 +1,11 @@
+{
+  "name": "calender-heatmap",
+  "version": "1.0.0",
+  "description": "Create calender heatmap easily",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lepusarcticus",
+  "license": "MIT"
+}
