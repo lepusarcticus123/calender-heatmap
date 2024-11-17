@@ -8,12 +8,12 @@ class u {
       cellSpacing: 2,
       tipMonth: {
         value: !0,
-        format: (s) => s
+        format: (l) => l
         // 默认直接返回月份
       },
       tooltip: {
         value: !0,
-        format: (s) => `${s[1].toFixed(2)} on ${s[0]}`
+        format: (l) => `${l[1].toFixed(2)} on ${l[0]}`
         // 默认显示值和日期
       }
     };
@@ -64,7 +64,7 @@ class u {
         for (let o = r.length - 1; o >= 0; o--)
           if (t >= r[o].threshold) return r[o].color;
       case "blue":
-        const s = [
+        const l = [
           { threshold: 0, color: "#ebedf0" },
           // 最浅灰蓝
           { threshold: 1, color: "#d0e7f9" },
@@ -82,8 +82,8 @@ class u {
           { threshold: 50, color: "#174ea6" }
           // 最深蓝色
         ];
-        for (let o = s.length - 1; o >= 0; o--)
-          if (t >= s[o].threshold) return s[o].color;
+        for (let o = l.length - 1; o >= 0; o--)
+          if (t >= l[o].threshold) return l[o].color;
       case "orange":
         const c = [
           { threshold: 0, color: "#fef5e7" },
@@ -116,24 +116,24 @@ class u {
     t.style.position = "absolute", t.style.backgroundColor = "rgba(0, 0, 0, 0.9)", t.style.color = "white", t.style.padding = "6px", t.style.borderRadius = "5px", t.style.opacity = "0", t.style.fontSize = "smaller", t.style.transition = "opacity 0.5s", t.style.pointerEvents = "none", n.appendChild(t);
     const e = this.container.width.baseVal.value, r = this.container.height.baseVal.value;
     this.container.style.height = r + 20;
-    const s = e * 0.01, c = r * 0.01;
+    const l = e * 0.01, c = r * 0.01;
     this.data.forEach((o, d) => {
-      let l = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-      if (l.setAttribute(
+      let s = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      if (s.setAttribute(
         "x",
         Math.floor(d / this.options.y) * (e / this.options.x)
         // 列号
-      ), l.setAttribute(
+      ), s.setAttribute(
         "y",
         d % this.options.y * (r / this.options.y)
         // 行号
-      ), l.setAttribute(
+      ), s.setAttribute(
         "width",
         e / this.options.x - this.options.cellSpacing
-      ), l.setAttribute(
+      ), s.setAttribute(
         "height",
         r / this.options.y - this.options.cellSpacing
-      ), l.setAttribute("fill", this.getColor(o[1], this.options.color)), l.setAttribute("rx", s), l.setAttribute("ry", c), this.container.appendChild(l), this.options.tipMonth.value) {
+      ), s.setAttribute("fill", this.getColor(o[1], this.options.color)), s.setAttribute("rx", l), s.setAttribute("ry", c), this.container.appendChild(s), this.options.tipMonth.value) {
         const a = o[0].split("-")[2], i = o[0].split("-")[1];
         if (a == "01") {
           const h = document.createElementNS(
@@ -146,11 +146,13 @@ class u {
           h.setAttribute("x", p), h.setAttribute("y", f), h.setAttribute("fill", "rgb(174, 174, 174)"), h.setAttribute("font-size", "14px"), h.setAttribute("text-anchor", "middle"), this.container.appendChild(h);
         }
       }
-      this.options.tooltip.value && l.addEventListener("mouseover", (a) => {
+      this.options.tooltip.value && (s.addEventListener("mouseover", (a) => {
         t.style.opacity = "1", t.textContent = this.options.tooltip.format(o);
-        const i = l.getBoundingClientRect(), h = i.left + i.width / 2 - t.offsetWidth / 2;
+        const i = s.getBoundingClientRect(), h = i.left + i.width / 2 - t.offsetWidth / 2;
         t.style.left = `${h}px`, t.style.top = `${i.top - i.height * 2}px`;
-      });
+      }), s.addEventListener("mouseout", () => {
+        t.style.opacity = "0";
+      }));
     });
   }
 }

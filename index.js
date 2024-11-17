@@ -163,9 +163,9 @@ class Heatmap {
           tooltip.style.top = `${rectBox.top - rectBox.height * 2}px`;
         });
 
-        // rect.addEventListener("mouseout", () => {
-        //   tooltip.style.opacity = "0";
-        // });
+        rect.addEventListener("mouseout", () => {
+          tooltip.style.opacity = "0";
+        });
       }
     });
   }
