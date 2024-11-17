@@ -125,26 +125,24 @@ class Heatmap {
       this.container.appendChild(rect);
       //月份提示
       if (this.options.tipMonth.value) {
-        console.log(this.options.tipMonth.format);
         const day = value[0].split("-")[2];
         const month = value[0].split("-")[1];
         if (day == "01") {
-          const text = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "text"
-          );
-          text.textContent = this.options.tipMonth.format(
-            month.replace(/^0/, "")
-          ); // 直接显示月份的数字
-          text.setAttribute(
-            "x",
+          const monthDiv = document.createElement("div");
+          monthDiv.textContent = this.options.tipMonth.format(
+            parseInt(month, 10)
+          ); // 格式化月份
+          monthDiv.style.position = "absolute";
+          monthDiv.style.top = `${scaleY + 14}px`; // 设置显示的 y 坐标，避免重叠
+          monthDiv.style.left = `${
             Math.floor(index / this.options.y) * (scale / this.options.x) + 10
-          );
-          text.setAttribute("y", scaleY + 20); // 静态高度
-          text.setAttribute("fill", "rgb(174, 174, 174)");
-          text.setAttribute("font-size", "14px");
-          text.setAttribute("text-anchor", "middle");
-          this.container.appendChild(text);
+          }px`;
+          monthDiv.style.fontSize = "14px";
+          monthDiv.style.color = "rgb(174, 174, 174)";
+          monthDiv.style.textAlign = "center";
+          monthDiv.style.pointerEvents = "none"; // 防止鼠标事件干扰
+
+          document.body.appendChild(monthDiv); // 将 div 添加到 body 或容器中
         }
       }
 
