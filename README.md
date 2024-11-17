@@ -15,14 +15,14 @@ HTML
     <title>Document</title>
   </head>
   <body>
-    <svg width="400" height="200"></svg> 
+    <svg width="400" height="200"></svg>
   </body>
   <script src="node_modules/calender-heatmap/dist/heatmap.umd.js"></script>
   <script src="./test.js"></script>
 </html>
 ```
 
-`   <svg width="400" height="200"></svg> `----------------------------**宽高是必须使用的**，热力图是根据宽高来自动分配格子大小！
+`  <svg width="400" height="200"></svg>`----------------------------**宽高是必须使用的**，热力图是根据宽高来自动分配格子大小！
 
 ` <script src="node_modules/calender-heatmap/dist/heatmap.umd.js"></script>`----------------------**导入文件**
 
@@ -32,10 +32,10 @@ JS
 
 `Heatmap`-热力图类
 
-- DOM元素
+- DOM 元素
 - 需要展示的数据
   - 格式固定为[[日期，值]，...]
-  - 日期固定为2021-10-2(`toLocaleDateString`形式)
+  - 日期固定为 2021-10-2(`toLocaleDateString`形式)
 - 选项(有默认选项)
   - x(Number)：一行有多少个
   - y(Number)：一列有多少个
@@ -54,11 +54,11 @@ JS
 
 ```js
 const svg = document.querySelector("#svg");
-const heatmap = new CalenderHeatmap.Heatmap(svg, data,options );
+const heatmap = new CalenderHeatmap.Heatmap(svg, data, options);
 heatmap.paint();
 ```
 
-![image-20241117172926359](C:\Users\10350\AppData\Roaming\Typora\typora-user-images\image-20241117172926359.png)
+![image](./img.png)
 
 **ESM**
 
@@ -81,4 +81,3 @@ onMounted(() => {
 //template
   <svg width="400" height="200"></svg>
 ```
-
